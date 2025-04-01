@@ -1,16 +1,18 @@
-# Welcome to your Expo app 👋
+# Welcome to my Expo app project👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This is an [Expo](https://expo.dev) project initialized with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
-## Get started
+## To Get started
 
-1. Install dependencies
+1. Clone the repository
+
+2. Install dependencies
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. Start the app
 
    ```bash
     npx expo start

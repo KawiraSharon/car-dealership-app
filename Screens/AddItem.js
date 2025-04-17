@@ -91,53 +91,92 @@
 
 
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
-import { useDispatch } from 'react-redux';
-import { addItem } from '@/store/Slice';
+
+// import { useDispatch } from 'react-redux';
+// import { addItem } from '@/store/Slice';
+
+import { storeItem } from '../Utility/Helper';
 
 const AddItem = ({navigation}) => {
-    const dispatch = useDispatch();
+
+    // const dispatch = useDispatch();
+
     let newItemValue = {};
-    newItemValue.id = Math.floor(Math.random() * 100);
+
+    //comment out new Id as firebase auto generates IDs
+    // newItemValue.id = Math.floor(Math.random() * 100);
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.label}>Item Type:</Text>
+        <View style={styles.containerStyle}>
+            <Text style={styles.textStyle}>Type:</Text>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Enter Item Type"
+                placeholder="Enter Type"
                 onChangeText={(newValue) => (newItemValue.category = newValue)}
             />
 
-            <Text style={styles.label}>Item Name:</Text>
+            <Text style={styles.textStyle}>Name:</Text>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Enter Item Name"
+                placeholder="Enter Name"
                 onChangeText={(newValue) => (newItemValue.name = newValue)}
             />
 
-            <Text style={styles.label}>Item Price:</Text>
+            <Text style={styles.textStyle}>Price:</Text>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Enter Item Price"
+                placeholder="Enter Price"
                 keyboardType="numeric"
                 onChangeText={(newValue) => (newItemValue.price = newValue)}
             />
 
-            <Text style={styles.label}>Item Description:</Text>
+            <Text style={styles.textStyle}>Description:</Text>
             <TextInput
                 style={styles.inputStyle}
-                placeholder="Enter Item Description"
+                placeholder="Enter Description"
                 multiline={true}
                 numberOfLines={4}
                 onChangeText={(newValue) => (newItemValue.desc = newValue)}
             />
+            
+            <Text style={styles.textStyle}>Image URL:</Text>
+            <TextInput
+                style={styles.inputStyle}
+                placeholder="Enter Image URL"
+                onChangeText={(newValue) => (newItemValue.image_url = newValue)}
+            />
 
-            <View style={styles.buttonContainer}>
+            <Text style={styles.textStyle}>Rating:</Text>
+            <TextInput
+                style={styles.inputStyle}
+                placeholder="Enter Rating"
+                keyboardType="numeric"
+                onChangeText={(newValue) => (newItemValue.rating = newValue)}
+            />
+
+            <Text style={styles.textStyle}>Review Count:</Text>
+            <TextInput
+                style={styles.inputStyle}
+                placeholder="Enter Review Count"
+                multiline={true}
+                numberOfLines={4}
+                onChangeText={(newValue) => (newItemValue.review_count = newValue)}
+            />
+            
+
+            <View style={{marginTop: 40, width: 200, alignSelf: 'center'}}>
                 <Button
                     title="Add Item"
                     onPress={() => {
-                        dispatch(addItem(newItemValue));
-                        navigation.navigate('List of Cars', { itemCategory: newItemValue.category });
+
+                        // dispatch(addItem(newItemValue)); prev use of dispatch/redux
+                        storeItem(newItemValue).then(
+
+                            navigation.navigate('List of Cars', { itemCategory: newItemValue.category })
+
+                        );
+
+                        
                     }}
                 />
             </View>
@@ -145,36 +184,63 @@ const AddItem = ({navigation}) => {
     );
 };
 
+// const styles = StyleSheet.create({
+//     container: {
+//         padding: 20,
+//         backgroundColor: '#f5f5f5',
+//         flex: 1,
+//     },
+//     label: {
+//         fontSize: 18,
+//         fontWeight: 'bold',
+//         marginBottom: 10,
+//     },
+//     inputStyle: {
+//         borderWidth: 1,
+//         borderColor: '#ccc',
+//         borderRadius: 8,
+//         padding: 10,
+//         marginBottom: 20,
+//         backgroundColor: 'white',
+//     },
+//     buttonContainer: {
+//         marginTop: 20,
+//         backgroundColor: '#007bff',
+//         borderRadius: 8,
+//         overflow: 'hidden',
+//     },
+//     button: {
+//         padding: 10,
+//         color: '#fff',
+//         textAlign: 'center',
+//     },
+// });
+
 const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        backgroundColor: '#f5f5f5',
+
+    containerStyle: {
         flex: 1,
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
+        backgroundColor: 'maroon',
     },
     inputStyle: {
         borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 8,
-        padding: 10,
-        marginBottom: 20,
-        backgroundColor: 'white',
+        borderColor: 'black',
+        height: 40,
+        width: 300,
+        borderRadius: 10,
+        margin: 5,
+        alignSelf: 'center',
+        color: 'white',
+        paddingLeft: 10
     },
-    buttonContainer: {
-        marginTop: 20,
-        backgroundColor: '#007bff',
-        borderRadius: 8,
-        overflow: 'hidden',
-    },
-    button: {
-        padding: 10,
-        color: '#fff',
-        textAlign: 'center',
-    },
+    textStyle: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        margin: 5,
+        marginLeft: 45,
+        color: 'cornflowerblue'
+    }
+
 });
 
 export default AddItem;

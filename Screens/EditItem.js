@@ -184,12 +184,13 @@ import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-nat
 // import { useContext, useState } from 'react';
 // import ItemContext from '../Context/StoreContext.js';
 
-import { useDispatch } from 'react-redux';
-import { editItem } from '@/store/Slice';
+// import { useDispatch } from 'react-redux';
+// import { editItem } from '@/store/Slice';
+import { updateItem } from '@/Utility/Helper';
 
 const EditItem = ({navigation, route}) => {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     
     // Getting the item details from route parameters
     const ProductItem = route.params.itemProduct;
@@ -202,22 +203,22 @@ const EditItem = ({navigation, route}) => {
     const [desc, setDesc] = useState(ProductItem.desc);
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
-            <Text style={styles.label}>Item Type:</Text>
+        <ScrollView contentContainerStyle={styles.containerStyle}>
+            <Text style={styles.textStyle}>Item Type:</Text>
             <TextInput 
                 style={styles.inputStyle}
                 value={category}
                 onChangeText={(newValue) => setCategory(newValue)}
             />
 
-            <Text style={styles.label}>Item Name:</Text>
+            <Text style={styles.textStyle}>Item Name:</Text>
             <TextInput 
                 style={styles.inputStyle}
                 value={name}
                 onChangeText={(newValue) => setName(newValue)}
             />
 
-            <Text style={styles.label}>Item Price:</Text>
+            <Text style={styles.textStyle}>Item Price:</Text>
             <TextInput 
                 style={styles.inputStyle}
                 value={price}
@@ -225,7 +226,7 @@ const EditItem = ({navigation, route}) => {
                 onChangeText={(newValue) => setPrice(newValue)} 
             />
 
-            <Text style={styles.label}>Item Description:</Text>
+            <Text style={styles.textStyle}>Item Description:</Text>
             <TextInput 
                 style={styles.inputStyle}
                 value={desc}
@@ -245,9 +246,14 @@ const EditItem = ({navigation, route}) => {
                             desc,
                         };
 
-                        dispatch(editItem(updatedProduct));
+                        // dispatch(editItem(updatedProduct));
 
-                        navigation.navigate('List of Cars', { itemCategory: updatedProduct.category });
+                        updateItem(updatedProduct.id, updatedProduct).then(
+
+                        navigation.navigate('List of Cars', { itemCategory: updatedProduct.category })
+
+                        );
+
                     }}
                 />
             </View>
@@ -255,32 +261,59 @@ const EditItem = ({navigation, route}) => {
     );
 }
 
+// const styles = StyleSheet.create({
+//     container: {
+//         flexGrow: 1,
+//         padding: 20,
+//         backgroundColor: '#f8f9fa',
+//     },
+//     label: {
+//         fontSize: 18,
+//         fontWeight: 'bold',
+//         marginBottom: 10,
+//     },
+//     inputStyle: {
+//         borderWidth: 1,
+//         borderColor: '#ced4da',
+//         borderRadius: 8,
+//         padding: 10,
+//         height: 65,
+//         marginBottom: 20,
+//         fontSize: 16,
+//         backgroundColor: '#fff',
+//     },
+//     buttonContainer: {
+//         marginTop: 20,
+//         borderRadius: 8,
+//         overflow: 'hidden',
+//     },
+// });
+
 const styles = StyleSheet.create({
-    container: {
-        flexGrow: 1,
-        padding: 20,
-        backgroundColor: '#f8f9fa',
-    },
-    label: {
-        fontSize: 18,
-        fontWeight: 'bold',
-        marginBottom: 10,
+
+    containerStyle: {
+        flex: 1,
+        backgroundColor: 'maroon',
     },
     inputStyle: {
         borderWidth: 1,
-        borderColor: '#ced4da',
-        borderRadius: 8,
-        padding: 10,
-        height: 65,
-        marginBottom: 20,
+        borderColor: 'black',
+        height: 40,
+        width: 300,
+        borderRadius: 10,
+        margin: 5,
+        alignSelf: 'center',
+        color: 'white',
+        paddingLeft: 10
+    },
+    textStyle: {
         fontSize: 16,
-        backgroundColor: '#fff',
-    },
-    buttonContainer: {
-        marginTop: 20,
-        borderRadius: 8,
-        overflow: 'hidden',
-    },
+        fontWeight: 'bold',
+        margin: 5,
+        marginLeft: 45,
+        color: 'cornflowerblue'
+    }
+
 });
 
 export default EditItem;

@@ -67,10 +67,16 @@ const ItemDetails = ({ navigation, route }) => {
             <Text style = {styles.textStyle}> Price: ${ProductItem.price} </Text>
             <Text style = {styles.textStyle}> Description: {ProductItem.desc} </Text>
 
-            <Image 
+            {/* <Image 
                 style = {styles.imgStyle} 
                 source = {ProductItem.itemImage}
                 resizeMode='contain'
+            /> */}
+
+            <Image
+                style = {styles.imgStyle}
+                source={ {uri: ProductItem.image_url} }
+                resizeMode="contain"
             />
 
             <Text style = {styles.textStyle}> 
@@ -78,7 +84,7 @@ const ItemDetails = ({ navigation, route }) => {
                 <AntDesign name='star' size={20} color='orange'/>
 
             </Text>
-            <Text style = {styles.textStyle}> Review Count: {ProductItem.reviewCount} </Text>
+            <Text style = {styles.textStyle}> Review Count: {ProductItem.review_count} </Text>
 
         </View>
     );
@@ -91,18 +97,19 @@ export default ItemDetails;
 const styles = StyleSheet.create({
 
     imgStyle : {
-        width: 300,
-        height: 250,
+        width: 300, //check this on mobile app, try 3000
+        height: 300,
         alignSelf: 'center',
-        marginVertical: 20,
-        borderRadius: 15,
-        borderColor: '#ccc',
-        borderWidth: 1,
-        shadowColor: '#000', 
-        shadowOffset: { width: 0, height: 2 }, 
-        shadowOpacity: 0.3,
-        shadowRadius: 5,
-        elevation: 5,
+        // marginVertical: 20,
+        // borderRadius: 15,
+        // borderColor: '#ccc',
+        // borderWidth: 1,
+        // shadowColor: '#000', 
+        // shadowOffset: { width: 0, height: 2 }, 
+        // shadowOpacity: 0.3,
+        // shadowRadius: 5,
+        // elevation: 5,
+        margin: 10
     },
 
     textStyle : {

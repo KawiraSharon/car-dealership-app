@@ -95,7 +95,7 @@ import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 // import { useDispatch } from 'react-redux';
 // import { addItem } from '@/store/Slice';
 
-import { storeItem } from '../Utility/Helper';
+import { addItemHelper } from '../Utility/Helper';
 
 const AddItem = ({navigation}) => {
 
@@ -170,7 +170,7 @@ const AddItem = ({navigation}) => {
                     onPress={() => {
 
                         // dispatch(addItem(newItemValue)); prev use of dispatch/redux
-                        storeItem(newItemValue).then(
+                        addItemHelper(newItemValue).then(
 
                             navigation.navigate('List of Cars', { itemCategory: newItemValue.category })
 
@@ -184,43 +184,11 @@ const AddItem = ({navigation}) => {
     );
 };
 
-// const styles = StyleSheet.create({
-//     container: {
-//         padding: 20,
-//         backgroundColor: '#f5f5f5',
-//         flex: 1,
-//     },
-//     label: {
-//         fontSize: 18,
-//         fontWeight: 'bold',
-//         marginBottom: 10,
-//     },
-//     inputStyle: {
-//         borderWidth: 1,
-//         borderColor: '#ccc',
-//         borderRadius: 8,
-//         padding: 10,
-//         marginBottom: 20,
-//         backgroundColor: 'white',
-//     },
-//     buttonContainer: {
-//         marginTop: 20,
-//         backgroundColor: '#007bff',
-//         borderRadius: 8,
-//         overflow: 'hidden',
-//     },
-//     button: {
-//         padding: 10,
-//         color: '#fff',
-//         textAlign: 'center',
-//     },
-// });
-
 const styles = StyleSheet.create({
 
     containerStyle: {
         flex: 1,
-        backgroundColor: 'maroon',
+        backgroundColor: '#FDEDEC', 
     },
     inputStyle: {
         borderWidth: 1,
@@ -230,17 +198,17 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 5,
         alignSelf: 'center',
-        color: 'white',
-        paddingLeft: 10
+        paddingLeft: 10,
     },
     textStyle: {
         fontSize: 16,
         fontWeight: 'bold',
         margin: 5,
         marginLeft: 45,
-        color: 'cornflowerblue'
+        color: 'black'
     }
 
 });
+  
 
 export default AddItem;

@@ -18,11 +18,13 @@
 
 import { StyleSheet, Text, View, Button, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
+import { useEffect, useState } from 'react';
+
 // import { useContext } from 'react';
 // import ItemContext from '../Context/StoreContext.js';
 
-import { useSelector } from 'react-redux';
-
+// import { useSelector } from 'react-redux';
+import { getTypeHelper } from '@/Utility/Helper';
 
 //const ItemTypes = (props) instead of this we can destructure again, specify objects as is commonly preferred.
 const ItemTypes = ({navigation, route}) => {
@@ -36,10 +38,23 @@ const ItemTypes = ({navigation, route}) => {
 
     // const {Categories} = useContext(ItemContext);
 
-    const {ListofCategories} = useSelector ( (state) => state.itemData );
+    // const {ListofCategories} = useSelector ( (state) => state.itemData );
+
+    const [ ListofCategories, setCategories ] = useState([]);
+
+    useEffect(() => {
+        const fetchTypes = async () => {
+            const typesOfCars = await getTypeHelper();
+            setCategories(typesOfCars);
+
+        };
+
+        fetchTypes();
+    }, []);
+
 
     return (
-       <View style = { { backgroundColor: 'lightblue' } }>
+       <View style = { { backgroundColor: '#FADBD8', paddingVertical: 10 } }>
             <FlatList
                 data = {ListofCategories}
                 keyExtractor = { (category) => category }
@@ -66,32 +81,25 @@ const ItemTypes = ({navigation, route}) => {
 
 export default ItemTypes;
 
-
 const styles = StyleSheet.create({
-
-    // container: {
-    //  flex: 1,
-    //  backgroundColor: '#fff',
-    //  alignItems: 'center',
-    //  justifyContent: 'center',
-    // }
-
     itemStyle: {
-        width: 150,
-        height: 150,
-        borderWidth: 2,
-        borderColor: 'gray',
-        margin: 16,
-        borderRadius: 10,
-        justifyContent: 'center',
-        alignItems: 'center'
-
+      width: 150,
+      height: 150,
+      borderWidth: 2,
+      borderColor: '#F5B7B1',
+      backgroundColor: '#FDEDEC', 
+      margin: 16,
+      borderRadius: 16,
+      justifyContent: 'center',
+      alignItems: 'center',
+      elevation: 4,
+    },
+    textStyle: {
+      fontSize: 16,
+      fontWeight: 'bold',
+    //   fontWeight: 'condensedBold',
+      color: 'black',
     },
 
-    textStyle: {
-        fontSize: 16,
-        fontWeight: 'bold'
-    }
-   
-   });
-
+});
+  

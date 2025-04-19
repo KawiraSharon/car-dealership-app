@@ -186,7 +186,7 @@ import { StyleSheet, Text, View, Button, TextInput, ScrollView } from 'react-nat
 
 // import { useDispatch } from 'react-redux';
 // import { editItem } from '@/store/Slice';
-import { updateItem } from '@/Utility/Helper';
+import { editItemHelper } from '@/Utility/Helper';
 
 const EditItem = ({navigation, route}) => {
 
@@ -248,7 +248,7 @@ const EditItem = ({navigation, route}) => {
 
                         // dispatch(editItem(updatedProduct));
 
-                        updateItem(updatedProduct.id, updatedProduct).then(
+                        editItemHelper(updatedProduct.id, updatedProduct).then(
 
                         navigation.navigate('List of Cars', { itemCategory: updatedProduct.category })
 
@@ -261,39 +261,11 @@ const EditItem = ({navigation, route}) => {
     );
 }
 
-// const styles = StyleSheet.create({
-//     container: {
-//         flexGrow: 1,
-//         padding: 20,
-//         backgroundColor: '#f8f9fa',
-//     },
-//     label: {
-//         fontSize: 18,
-//         fontWeight: 'bold',
-//         marginBottom: 10,
-//     },
-//     inputStyle: {
-//         borderWidth: 1,
-//         borderColor: '#ced4da',
-//         borderRadius: 8,
-//         padding: 10,
-//         height: 65,
-//         marginBottom: 20,
-//         fontSize: 16,
-//         backgroundColor: '#fff',
-//     },
-//     buttonContainer: {
-//         marginTop: 20,
-//         borderRadius: 8,
-//         overflow: 'hidden',
-//     },
-// });
-
 const styles = StyleSheet.create({
 
     containerStyle: {
         flex: 1,
-        backgroundColor: 'maroon',
+        backgroundColor: '#FDEDEC', 
     },
     inputStyle: {
         borderWidth: 1,
@@ -303,16 +275,21 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         margin: 5,
         alignSelf: 'center',
-        color: 'white',
-        paddingLeft: 10
+        paddingLeft: 10,
     },
     textStyle: {
         fontSize: 16,
         fontWeight: 'bold',
         margin: 5,
         marginLeft: 45,
-        color: 'cornflowerblue'
-    }
+        color: 'black'
+    },
+    buttonContainer: {
+        marginTop: 30,
+        width: 200,
+        alignSelf: 'center',
+    },
+      
 
 });
 

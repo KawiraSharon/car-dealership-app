@@ -9,8 +9,8 @@ import { useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { deleteItem } from '../store/Slice';
 
-import { getItem } from '../Utility/Helper';
-import { removeItem } from '../Utility/Helper';
+import { getItemHelper } from '../Utility/Helper';
+import { deleteItemHelper } from '../Utility/Helper';
 
 //const ItemList = (props) destructure again instead
 const ItemList = ({navigation, route}) => {
@@ -36,7 +36,7 @@ const ItemList = ({navigation, route}) => {
 
     const getItemInfo = async() => {
 
-        const data = await getItem();
+        const data = await getItemHelper();
         // console.log(data);
         setItemList(data);
 
@@ -71,53 +71,68 @@ const ItemList = ({navigation, route}) => {
     console.log(itemProducts);
 
     return (
-        <FlatList
-                    data = {itemProducts}
-                    // keyExtractor = { (item) => item.id } the extractor should also return a string.
-                    keyExtractor={(item) => String(item.id)}
-                    renderItem = { ( {item} ) => { {/* 
-                        specifying by destructuring that we are only displaying the item*/}
-                        //console.log(item);
-        
-                        return (
-                            <View style = {styles.itemStyle}>
-                                <TouchableOpacity onPress = { () => {navigation.navigate('Item Details', {itemProduct: item})} }>
-                                    <Text> {item.name} </Text>
-                                </TouchableOpacity>
+        <View style = {styles.container} >
+            <FlatList
+                        data = {itemProducts}
+                        // keyExtractor = { (item) => item.id } the extractor should also return a string.
+                        keyExtractor={(item) => String(item.id)}
+                        renderItem = { ( {item} ) => { {/* 
+                            specifying by destructuring that we are only displaying the item*/}
+                            //console.log(item);
+            
+                            return (
+                                <View style = {styles.itemStyle}>
+                                    <TouchableOpacity onPress = { () => {navigation.navigate('Item Details', {itemProduct: item})} }>
+                                        <Text > {item.name} </Text>
+                                    </TouchableOpacity>
 
-                                <TouchableOpacity onPress={ 
+                                    <TouchableOpacity onPress={ 
 
-                                    () => {
-                                        // const delProd = delProductFn();
-                                        // delProd(item.id)
-                                        // dispatch(deleteItem(item.id)); this needs to pass the whole item
-                                        // dispatch(deleteItem(item.id));
+                                        () => {
+                                            // const delProd = delProductFn();
+                                            // delProd(item.id)
+                                            // dispatch(deleteItem(item.id)); this needs to pass the whole item
+                                            // dispatch(deleteItem(item.id));
 
-                                        removeItem(item.id).then(
-                                            //refreshing the list
-                                            navigation.navigate('List of Cars', { itemCategory: item.category })
-                                        );
-                                    }
-                                }>
-                                <AntDesign name="delete" size={24} color="black" />
-                                </TouchableOpacity>
-                            </View>
-                        );
-                    }}
-                >    
-                </FlatList>
+                                            deleteItemHelper(item.id).then(
+                                                //refreshing the list
+                                                navigation.navigate('List of Cars', { itemCategory: item.category })
+                                            );
+                                        }
+                                    }>
+                                    <AntDesign name="delete" size={24} color="black" />
+                                    </TouchableOpacity>
+                                </View>
+                            );
+                        }}
+                    >    
+                    </FlatList>
+                </View>
     );
 };
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FDEDEC', // soft pink background for entire screen
+        paddingTop: 10,
+        paddingHorizontal: 8,
+      },
+    itemStyle: {
+      flexDirection: 'row',
+      borderWidth: 1,
+      borderColor: '#F5B7B1', // soft pink border
+      backgroundColor: '#FDEDEC', // pink card
+      padding: 10,
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      marginHorizontal: 10,
+      marginVertical: 5,
+      borderRadius: 12,
+      elevation: 3,
+    },
 
-    itemStyle : {
-        flexDirection : 'row',
-        borderWidth : 1,
-        padding : 10,
-        justifyContent : 'space-between'
-    }
-})
-
+});
+  
 export default ItemList;
 
